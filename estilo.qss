@@ -1,0 +1,39 @@
+QMainWindow {
+    background-color: #2e3440;
+    color: #d8dee9;
+}
+
+QLabel {
+    font-size: 16px;
+    color: #eceff4;
+}
+
+QLineEdit, QTableWidget {
+    background-color: #3b4252;
+    color: #eceff4;
+    border: 1px solid #4c566a;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QPushButton {
+    background-color: #5e81ac;
+    color: #eceff4;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #81a1c1;
+}
+
+QCheckBox {
+    font-size: 14px;
+    color: #eceff4;
+}
+
+QTableWidget::item {
+    background-color: #4c566a;
+    color: #d8dee9;
+}
