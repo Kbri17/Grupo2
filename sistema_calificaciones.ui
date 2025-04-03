@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>790</width>
-    <height>764</height>
+    <width>1026</width>
+    <height>887</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,7 +42,7 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>440</x>
+     <x>430</x>
      <y>100</y>
      <width>121</width>
      <height>21</height>
@@ -62,21 +62,11 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="input_grade">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>150</y>
-     <width>131</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QCheckBox" name="checkbox_attendance">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>150</y>
+     <x>450</x>
+     <y>240</y>
      <width>70</width>
      <height>17</height>
     </rect>
@@ -114,8 +104,8 @@
   <widget class="QTableWidget" name="tblGrades">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>350</y>
+     <x>430</x>
+     <y>320</y>
      <width>391</width>
      <height>271</height>
     </rect>
@@ -135,6 +125,62 @@
      <string>Asistencia</string>
     </property>
    </column>
+  </widget>
+  <widget class="QCalendarWidget" name="calendar">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>50</y>
+     <width>312</width>
+     <height>183</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spin_grade">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>150</y>
+     <width>42</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>20</number>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="list_students">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>380</y>
+     <width>256</width>
+     <height>192</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="combo_attendance">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>150</y>
+     <width>69</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>330</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Lista de estudiantes</string>
+   </property>
   </widget>
  </widget>
  <resources/>
