@@ -1,7 +1,7 @@
 import sys
 import csv
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QLabel, QLineEdit, QTextEdit, QPushButton, QRadioButton, QCheckBox, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QHBoxLayout, QFileDialog, QMessageBox, QSpinBox, QListWidget, QComboBox, QCalendarWidget)
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QDate
 from PyQt5.uic import loadUi
 
 
@@ -15,18 +15,21 @@ class SistemaCalificacionesAsistencia(QMainWindow):
         self.save_button.clicked.connect(self.save_report)
         self.delete_button.clicked.connect(self.delete_student)
         self.filter_button.clicked.connect(self.apply_filters)
+        
 
         self.combo_attendance.addItems(["Presente", "Ausente", "Tarde"])
         self.filter_attendance.addItems(
             ["Todos", "Presente", "Ausente", "Tarde"])
         self.filter_min_grade.setMaximum(20)
 
-        self.tblGrades.setColumnCount(4)
+        self.tblGrades.setColumnCount(5)
         self.tblGrades.setHorizontalHeaderLabels(
-            ["Estudiante", "Calificación", "Asistencia", "Fecha"]
+            ["Estudiante", "Calificación", "Asistencia", "Fecha", "Comentario"]
         )
         self.tblGrades.setEditTriggers(self.tblGrades.DoubleClicked)
-        self.tblGrades.setSelectionBehavior(QAbstractItemView.SelectRows)
+        
+        
+        
 
     def add_student(self):
         name = self.input_name.text().strip()
@@ -43,6 +46,7 @@ class SistemaCalificacionesAsistencia(QMainWindow):
         grade = str(self.spin_grade.value())
         attendance = self.combo_attendance.currentText()
         date = self.calendar.selectedDate().toString("dd/MM/yyyy")
+        comment = self.comentario.toPlainText()
 
         self.list_students.addItem(name)
 
@@ -52,10 +56,12 @@ class SistemaCalificacionesAsistencia(QMainWindow):
         self.tblGrades.setItem(row, 1, QTableWidgetItem(grade))
         self.tblGrades.setItem(row, 2, QTableWidgetItem(attendance))
         self.tblGrades.setItem(row, 3, QTableWidgetItem(date))
+        self.tblGrades.setItem(row, 4, QTableWidgetItem(comment))
 
         self.input_name.clear()
         self.spin_grade.setValue(0)
         self.combo_attendance.setCurrentIndex(0)
+        self.comentario.clear()
 
     def delete_student(self):
         selected_row = self.tblGrades.currentRow()
@@ -70,6 +76,26 @@ class SistemaCalificacionesAsistencia(QMainWindow):
         else:
             QMessageBox.warning(self, "Advertencia",
                                 "Seleccione un estudiante para eliminar.")
+
+  # funcion que me permite editar a el estudiante seleccionado : nota , nombre , asistencia y fecha
+    def edit_student(self):
+        selected_row = self.tblGrades.currentRow()
+        if selected_row >= 0:
+            student_name = self.tblGrades.item(selected_row, 0).text()
+            grade = self.tblGrades.item(selected_row, 1).text()
+            attendance = self.tblGrades.item(selected_row, 2).text()
+            date = self.tblGrades.item(selected_row, 3).text()
+
+            self.input_name.setText(student_name)
+            self.spin_grade.setValue(int(grade))
+            index = self.combo_attendance.findText(attendance)
+            if index != -1:
+                self.combo_attendance.setCurrentIndex(index)
+            date_parts = date.split("/")
+            if len(date_parts) == 3:
+                day, month, year = map(int, date_parts)
+                self.calendar.setSelectedDate(QDate(year, month, day))
+ 
 
     def save_report(self):
         file_name, _ = QFileDialog.getSaveFileName(
