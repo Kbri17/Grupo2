@@ -62,17 +62,27 @@
     </rect>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkbox_attendance">
+  <widget class="QSpinBox" name="spin_grade">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>240</y>
-     <width>70</width>
-     <height>17</height>
+     <x>270</x>
+     <y>150</y>
+     <width>42</width>
+     <height>22</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Asistio</string>
+   <property name="maximum">
+    <number>20</number>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="combo_attendance">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>150</y>
+     <width>69</width>
+     <height>22</height>
+    </rect>
    </property>
   </widget>
   <widget class="QPushButton" name="add_button">
@@ -101,30 +111,28 @@
     <string>Guardar reporte</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="delete_button">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>280</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Eliminar Estudiante</string>
+   </property>
+  </widget>
   <widget class="QTableWidget" name="tblGrades">
    <property name="geometry">
     <rect>
      <x>430</x>
      <y>320</y>
-     <width>391</width>
+     <width>531</width>
      <height>271</height>
     </rect>
    </property>
-   <column>
-    <property name="text">
-     <string>Nombre</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Calificacion</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Asistencia</string>
-    </property>
-   </column>
   </widget>
   <widget class="QCalendarWidget" name="calendar">
    <property name="geometry">
@@ -136,19 +144,6 @@
     </rect>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spin_grade">
-   <property name="geometry">
-    <rect>
-     <x>270</x>
-     <y>150</y>
-     <width>42</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="maximum">
-    <number>20</number>
-   </property>
-  </widget>
   <widget class="QListWidget" name="list_students">
    <property name="geometry">
     <rect>
@@ -156,16 +151,6 @@
      <y>380</y>
      <width>256</width>
      <height>192</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="combo_attendance">
-   <property name="geometry">
-    <rect>
-     <x>420</x>
-     <y>150</y>
-     <width>69</width>
-     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -180,6 +165,44 @@
    </property>
    <property name="text">
     <string>Lista de estudiantes</string>
+   </property>
+  </widget>
+
+  <!-- NUEVOS FILTROS -->
+  <widget class="QSpinBox" name="filter_min_grade">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>610</y>
+     <width>61</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>20</number>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="filter_attendance">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>610</y>
+     <width>100</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="filter_button">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>610</y>
+     <width>91</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Filtrar</string>
    </property>
   </widget>
  </widget>
