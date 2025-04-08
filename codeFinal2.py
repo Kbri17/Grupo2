@@ -65,6 +65,9 @@ class SistemaCalificacionesAsistencia(QMainWindow):
                 for col, data in enumerate(row_data):
                     self.tblGrades.setItem(row, col, QTableWidgetItem(data))
 
+ # quiero otra funcion para guardar la fecha del calendar Widget
+ 
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

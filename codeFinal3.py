@@ -16,9 +16,30 @@ class SistemaCalificacionesAsistencia(QMainWindow):
         self.save_button.clicked.connect(self.save_report)
 
         # Configurar el ComboBox con opciones de asistencia
-        self.combo_attendance.addItems(["Presente", "Ausente", "Tarde"])
+
+        self.combo_attendance.addItems(["Presente", "Ausente", "Tarde", "Justificado"])
 
     def add_student(self):
+/*************  ✨ Windsurf Command ⭐  *************/
+    """
+    Adds a student to the system by retrieving input data, updating the student list 
+    and grades table, and clearing the input fields.
+
+    Retrieves the student's name, grade, attendance status, and selected date 
+    from the user interface. Adds the student's name to a list widget and 
+    inserts a new row into the grades table to display the student's details. 
+    After adding, the input fields are reset for new entries.
+
+    Expects:
+    - The input fields for name, grade, and attendance to be filled appropriately.
+    - The calendar widget to have a selected date.
+
+    Effects:
+    - Modifies the list of students and grades table in the UI.
+    - Clears the input fields for new input.
+    """
+
+/*******  d51a47ef-497e-413f-8ae6-b99d27962323  *******/
         name = self.input_name.text()
         grade = str(self.spin_grade.value())
         attendance = self.combo_attendance.currentText()
@@ -26,6 +47,7 @@ class SistemaCalificacionesAsistencia(QMainWindow):
 
         if name:
             # Añadir a la lista de estudiantes
+        
             self.list_students.addItem(name)
 
             # Añadir a la tabla
@@ -57,6 +79,7 @@ class SistemaCalificacionesAsistencia(QMainWindow):
                 QMessageBox.information(self, "Guardado", "El reporte se guardó correctamente.")
             except (IOError, OSError) as e:
                 QMessageBox.critical(self, "Error", f"No se pudo guardar el archivo: {e}")
+
 
 
 if __name__ == "__main__":
