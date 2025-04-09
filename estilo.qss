@@ -37,3 +37,24 @@ QTableWidget::item {
     background-color: #4c566a;
     color: #d8dee9;
 }
+
+QMessageBox {
+    background-color: #222222; 
+    font-family: "Segoe UI";
+    font-size: 14px;
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+QPushButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #45a049;
+}

@@ -15,6 +15,7 @@ class SistemaCalificacionesAsistencia(QMainWindow):
         self.save_button.clicked.connect(self.save_report)
         self.delete_button.clicked.connect(self.delete_student)
         self.filter_button.clicked.connect(self.apply_filters)
+        self.load_register.clicked.connect(self.load_csv)
         
 
         self.combo_attendance.addItems(["Presente", "Ausente", "Tarde"])
@@ -76,27 +77,7 @@ class SistemaCalificacionesAsistencia(QMainWindow):
         else:
             QMessageBox.warning(self, "Advertencia",
                                 "Seleccione un estudiante para eliminar.")
-
-  # funcion que me permite editar a el estudiante seleccionado : nota , nombre , asistencia y fecha
-    def edit_student(self):
-        selected_row = self.tblGrades.currentRow()
-        if selected_row >= 0:
-            student_name = self.tblGrades.item(selected_row, 0).text()
-            grade = self.tblGrades.item(selected_row, 1).text()
-            attendance = self.tblGrades.item(selected_row, 2).text()
-            date = self.tblGrades.item(selected_row, 3).text()
-
-            self.input_name.setText(student_name)
-            self.spin_grade.setValue(int(grade))
-            index = self.combo_attendance.findText(attendance)
-            if index != -1:
-                self.combo_attendance.setCurrentIndex(index)
-            date_parts = date.split("/")
-            if len(date_parts) == 3:
-                day, month, year = map(int, date_parts)
-                self.calendar.setSelectedDate(QDate(year, month, day))
  
-
     def save_report(self):
         file_name, _ = QFileDialog.getSaveFileName(
             self, "Guardar Reporte", "", "CSV Files (*.csv)"
@@ -106,7 +87,7 @@ class SistemaCalificacionesAsistencia(QMainWindow):
                 with open(file_name, "w", newline="", encoding="utf-8") as file:
                     writer = csv.writer(file)
                     writer.writerow(
-                        ["Estudiante", "Calificación", "Asistencia", "Fecha"])
+                        ["Estudiante", "Calificación", "Asistencia", "Fecha", "Comentario"])
                     for row in range(self.tblGrades.rowCount()):
                         student = self.tblGrades.item(row, 0).text(
                         ) if self.tblGrades.item(row, 0) else ""
@@ -116,13 +97,44 @@ class SistemaCalificacionesAsistencia(QMainWindow):
                             row, 2).text() if self.tblGrades.item(row, 2) else ""
                         date = self.tblGrades.item(row, 3).text(
                         ) if self.tblGrades.item(row, 3) else ""
-                        writer.writerow([student, grade, attendance, date])
+                        comment = self.tblGrades.item(
+                            row, 4).text() if self.tblGrades.item(row, 4) else ""
+                        writer.writerow([student, grade, attendance, date,comment])
+
                 QMessageBox.information(
                     self, "Guardado", "El reporte se guardó correctamente.")
             except (IOError, OSError) as e:
                 QMessageBox.critical(
                     self, "Error", f"No se pudo guardar el archivo: {e}")
 
+        #permitir cargar archivos csv
+    def load_csv(self):
+        file_name, _ = QFileDialog.getOpenFileName(
+            self, "Cargar CSV", "", "CSV Files (*.csv)"
+        )
+        if file_name:
+            try:
+                with open(file_name, "r", newline="", encoding="utf-8") as file:
+                    reader = csv.reader(file)
+                    for row in reader:
+                        student = row[0]
+                        grade = row[1]
+                        attendance = row[2]
+                        date = row[3]
+                        comment = row[4] if len(row) > 4 else ""
+                        self.tblGrades.insertRow(0) # Insertar al inicio
+                        self.tblGrades.setItem(1, 0, QTableWidgetItem(student))
+                        self.tblGrades.setItem(1, 1, QTableWidgetItem(grade))    
+                        self.tblGrades.setItem(1, 2, QTableWidgetItem(attendance))    
+                        self.tblGrades.setItem(1, 3, QTableWidgetItem(date)) 
+                        self.tblGrades.setItem(1, 4, QTableWidgetItem(comment))   
+            except (IOError, OSError) as e:
+                QMessageBox.critical(
+                    self, "Error", f"No se pudo cargar el archivo: {e}")
+            except Exception as e:      
+                QMessageBox.critical(
+                    self, "Error", f"Error inesperado: {e}")
+            self.tblGrades.resizeColumnsToContents()            
     def apply_filters(self):
         min_grade = self.filter_min_grade.value()
         attendance_filter = self.filter_attendance.currentText()
